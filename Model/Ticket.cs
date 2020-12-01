@@ -32,6 +32,12 @@ namespace EF_CodeFirst.Model
 
         public string State { get; set; }
 
+        [Required]
+        [MaxLength(50)]
+        public string Requestor { get; set; }
+
+        //navigation property
+        public virtual List<Note> Notes { get; set; }
 
 
     }

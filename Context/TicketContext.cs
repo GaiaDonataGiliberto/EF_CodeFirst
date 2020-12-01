@@ -1,4 +1,5 @@
 ﻿using EF_CodeFirst.Model;
+using EF_CodeFirst.Model.Configuration;
 using EF_CodeFirst_Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +14,8 @@ namespace EF_CodeFirst.Context
     {
         DbSet<Ticket> Tickets { get; set; }
 
+        DbSet<Note> Notes { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {            
             optionBuilder.UseSqlServer(Config.GetConnectionString("TicketDb"));
@@ -20,32 +23,9 @@ namespace EF_CodeFirst.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var ticketModel = modelBuilder.Entity<Ticket>();
-
-
-            //la fluent API permette di fare un blocco per ogni property, in base al tipo di ritorno
-
-            // is required automatico. Is Identity in automatico 1, 1
-            ticketModel
-                   .HasKey(t => t.Id);
-
-            ticketModel
-                .Property(t => t.Title)
-                .HasMaxLength(100)
-                .IsRequired();
-
-            ticketModel
-                .Property(t => t.Description)
-                .HasMaxLength(500);
-
-            ticketModel
-                .Property(t => t.Category)
-                .IsRequired();
-
-
-
+            modelBuilder.ApplyConfiguration<Ticket>(new TicketConfiguration());
+            modelBuilder.ApplyConfiguration<Note>(new NoteConfiguration());
                    
-
         }
 
     }
