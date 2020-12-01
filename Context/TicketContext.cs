@@ -1,4 +1,5 @@
 ﻿using EF_CodeFirst.Model;
+using EF_CodeFirst_Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -13,18 +14,8 @@ namespace EF_CodeFirst.Context
         DbSet<Ticket> Tickets { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
-        {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory()) //forzo il builder a usare la directory che è 
-                //  in esecuzione quando si fa la build, così trova il file json anche quando farò l'assembly
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            string connString = config.GetConnectionString("TicketDb");
-            // OPPURE config.GetSection("ConnectionStrings")["TicketDb"];
-
-            optionBuilder.UseSqlServer("connString");
-        
+        {            
+            optionBuilder.UseSqlServer(Config.GetConnectionString("TicketDb"));
         }
 
     }
