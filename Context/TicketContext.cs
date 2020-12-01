@@ -9,13 +9,43 @@ using System.Text;
 
 namespace EF_CodeFirst.Context
 {
-    class TicketContext : DbContext
+    public sealed class TicketContext : DbContext
     {
         DbSet<Ticket> Tickets { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {            
             optionBuilder.UseSqlServer(Config.GetConnectionString("TicketDb"));
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            var ticketModel = modelBuilder.Entity<Ticket>();
+
+
+            //la fluent API permette di fare un blocco per ogni property, in base al tipo di ritorno
+
+            // is required automatico. Is Identity in automatico 1, 1
+            ticketModel
+                   .HasKey(t => t.Id);
+
+            ticketModel
+                .Property(t => t.Title)
+                .HasMaxLength(100)
+                .IsRequired();
+
+            ticketModel
+                .Property(t => t.Description)
+                .HasMaxLength(500);
+
+            ticketModel
+                .Property(t => t.Category)
+                .IsRequired();
+
+
+
+                   
+
         }
 
     }
