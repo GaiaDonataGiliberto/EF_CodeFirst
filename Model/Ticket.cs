@@ -15,6 +15,11 @@ namespace EF_CodeFirst.Model
          * Convenzioni
          * ALTRIMENTI ERRORE
          */
+
+        public Ticket()
+        {
+            Notes = new List<Note>();
+        }
         [Key] // is required automatico. Is Identity in automatico 1, 1
         public int Id { get; set; }
 

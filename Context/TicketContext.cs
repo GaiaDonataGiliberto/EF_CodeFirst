@@ -12,9 +12,9 @@ namespace EF_CodeFirst.Context
 {
     public sealed class TicketContext : DbContext
     {
-        DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
 
-        DbSet<Note> Notes { get; set; }
+        public DbSet<Note> Notes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {            

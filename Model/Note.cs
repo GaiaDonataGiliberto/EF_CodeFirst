@@ -6,6 +6,11 @@ namespace EF_CodeFirst.Model
 {
     public class Note
     {
+        public Note()
+        {
+            Ticket = new Ticket();
+        }
+
         public int Id { get; set; }
 
         public string Comments { get; set; }
