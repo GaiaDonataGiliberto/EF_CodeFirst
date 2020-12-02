@@ -18,7 +18,9 @@ namespace EF_CodeFirst.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {            
-            optionBuilder.UseSqlServer(Config.GetConnectionString("TicketDb"));
+            string conString = Config.GetConnectionString("TicketDb");
+            optionBuilder.UseLazyLoadingProxies();
+            optionBuilder.UseSqlServer(conString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -26,7 +26,7 @@ namespace EF_CodeFirst
                         quit = true;
                         break;
                     case "a":
-                        // ADD
+                        // ADD TICKET
                         Ticket ticket = new Ticket();
 
                         
@@ -41,6 +41,27 @@ namespace EF_CodeFirst
                        var result = dataService.Add(ticket);
 
                         Console.WriteLine("Operation " + (result ? "Completed" : "Failed"));
+
+
+
+                        break;
+                    case "n":
+                        // ADD NOTE
+                        Note note = new Note();
+
+                        note.Comments = GetData("Commento");
+                        var ticketId = int.TryParse(GetData("Ticket ID"), out int tID);
+
+                        if (ticketId)
+                            note.TicketId = tID;                        
+                        else
+                            Console.WriteLine("Ticket ID non valido");
+                        
+                        
+
+                        var result2 = dataService.AddNote(note);
+
+                        Console.WriteLine("Operation " + (result2 ? "Completed" : "Failed"));
 
 
 
